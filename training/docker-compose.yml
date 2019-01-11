@@ -12,10 +12,10 @@ services:
       - "8080:8080"
       - "8443:8443"
       - "50389:50389"
-    domainname: am.iec.com
     networks:
       iec_net:
         ipv4_address: 172.16.0.10
+    hostname: iot-cloud
 
   iec:
     image: iec:latest
@@ -28,6 +28,9 @@ services:
     networks:
       iec_net:
         ipv4_address: 172.16.0.11
+    hostname: iot-gateway
+    extra_hosts:
+      - "am.iec.com:172.16.0.10"
 
   sdk:
     image: sdk:latest
@@ -38,6 +41,7 @@ services:
     networks:
       iec_net:
         ipv4_address: 172.16.0.12
+    hostname: iot-device
 
 networks:
   iec_net:
