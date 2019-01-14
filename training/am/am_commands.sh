@@ -74,19 +74,9 @@ function restart_tomcat() {
 }
 
 #
-# Add AM host to /etc/hosts if it's not already there
-#
-function configure_host() {
-    if [[ $(cat /etc/hosts | grep "${AM_HOST}") == "" ]]; then
-        echo 127.0.0.1 "${AM_HOST}" >> /etc/hosts
-    fi
-}
-
-#
 # Start tomcat and install AM with Amster
 #
 function install_am() {
-    configure_host
     start_tomcat
 
     echo "Installing OpenAM"
@@ -107,10 +97,4 @@ function modify_startup() {
     # install the am_commands.sh file so that it is sourced when entering bash
     echo "# source the AM commands file" >> /root/.bashrc
     echo "source /opt/forgerock/am/am_commands.sh" >> /root/.bashrc
-
-    # Add the AM host to the hosts file
-    echo "# Add the AM host to the hosts file if it's not there already" >> /root/.bashrc
-    echo "if ! (grep -q '${AM_HOST}' /etc/hosts); then" >> /root/.bashrc
-    echo "    echo 127.0.0.1 ${AM_HOST} >> /etc/hosts" >> /root/.bashrc
-    echo "fi" >> /root/.bashrc
 }
