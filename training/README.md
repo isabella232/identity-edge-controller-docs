@@ -27,10 +27,9 @@ Build and start the environment in the background:
 
     docker-compose up -d --build
 
-Stop the environment:
+There are many ways to interact with the environment after it has started. To see a list of commands run:
 
-    docker-compose down
-
+    docker-compose --help
 
 ### Install and configure AM
 
