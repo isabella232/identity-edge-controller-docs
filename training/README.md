@@ -12,12 +12,12 @@ Download the AM and IEC resources,
 * to `am/resources`
   * [Access Management](https://backstage.forgerock.com/downloads/get/familyId:am/productId:am/minorVersion:6.5/version:6.5.0/releaseType:full/distribution:war)
   * [Amster](https://backstage.forgerock.com/downloads/get/familyId:am/productId:amster/minorVersion:6.5/version:6.5.0/releaseType:full/distribution:zip)
-  * [IEC AM Plugin](http://abondance.internal.forgerock.com/pkg/servers/forgerock/IEC/6.5.0/iec-am-plugin-6.5.0.tgz)
-  * [Edge Identity Manager](http://abondance.internal.forgerock.com/pkg/servers/forgerock/IEC/6.5.0/edge-identity-manager-6.5.0.war)
+  * [IEC AM Plugin](https://backstage.forgerock.com/downloads/get/familyId:edge/productId:iec/subProductId:am-plugin/minorVersion:6.5/version:6.5.0/distribution:tar)
+  * [Edge Identity Manager](https://backstage.forgerock.com/downloads/get/familyId:edge/productId:iec/subProductId:manager/minorVersion:6.5/version:6.5.0/distribution:war)
 * to `iec/resources`
-  * [IEC Service](http://abondance.internal.forgerock.com/pkg/servers/forgerock/IEC/6.5.0/iec-service-linux-x86_64-lr-richos-6.5.0.tgz)
+  * [IEC Service](https://backstage.forgerock.com/downloads/get/familyId:edge/productId:iec/subProductId:service/minorVersion:6.5/version:6.5.0/architecture:x86-64/os:linux/distribution:tar)
 * to `sdk/resources`
-  * [IEC SDK](http://abondance.internal.forgerock.com/pkg/servers/forgerock/IEC/6.5.0/iec-sdk-linux-x86_64-lr-richos-6.5.0.tgz)
+  * [IEC SDK](https://backstage.forgerock.com/downloads/get/familyId:edge/productId:iec/subProductId:sdk/minorVersion:6.5/version:6.5.0/architecture:x86-64/distribution:tar)
 
 ### Build and Run
 
