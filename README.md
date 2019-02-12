@@ -7,6 +7,7 @@ we have a Docker environment that can be used for training on how to install and
 
 * [Introduction](docs/iec-introduction.md)
 * [Installation Guide](docs/iec-installation-guide.md)
+* [Remote Updates](docs/iec-remote-updates.md)
 * [Glossary](docs/iec-glossary.md)
 
 #### Training
