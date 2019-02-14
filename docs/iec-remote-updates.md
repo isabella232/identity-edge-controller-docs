@@ -1,6 +1,6 @@
 ## ForgeRock Identity Edge Controller Remote Updates
 
-Although Forgerock does not provide an Over The Air (OTA) remote update system, it is important to show that the IEC
+Although ForgeRock does not provide an Over The Air (OTA) remote update system, it is important to show that the IEC
 Service and SDK can be updated remotely. There are already many frameworks proven for remote update, so to use the 
 [Mender update system](https://docs.mender.io/) as an example for remote OTA updates :
 
