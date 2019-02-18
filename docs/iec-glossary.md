@@ -3,6 +3,9 @@
 |Term |Acronym |Description|
 |--- |--- |---
 |Access Management |AM |ForgeRock software that is part of the ForgeRock Identity Platform and provides access and identity management.|
+|Client | |Edge Node type that represents a client application which makes use of the IEC SDK. |
+|Constrained Device | |Device which does not have ability to connect securely across widse-area networks, due to cost and/or physical constraints. See [RFC 7228](https://tools.ietf.org/html/rfc7228#section-2). |
+|Device | |Edge Node type that represents a physical device that can be onboarded via a Client Node. |
 |Directory Services |DS |ForgeRock software that is part of the ForgeRock Identity Platform and provides storage for identities and configuration. |
 |Edge | |Industry term for the the geographic distribution of IoT devices. |
 |Edge Gateway | |The hardware and software deployed at the edge, through which devices communicate. |
