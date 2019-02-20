@@ -1,0 +1,33 @@
+{
+  "metadata" : {
+    "realm" : "/edge",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "iec",
+    "entityId" : "iec",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "regChallengeSigningKey" : "es256test",
+    "regVendorSecret" : "letmein",
+    "defaultScript" : "[Empty]",
+    "loadDefaultCommandScripts" : true,
+    "createRegAuthFlows" : true,
+    "regAudienceName" : "am.iec.com",
+    "commandScripts" : {
+      "GET_IEC_CONFIG" : "GetIecConfig",
+      "GET_USER_TOKENS" : "GetUserTokens",
+      "GET_TOKENS" : "GetDeviceTokens",
+      "GET_USER_CODE" : "GetUserCode",
+      "GET_CLIENT_CONFIG" : "GetClientConfig",
+      "GET_CONFIG" : "GetDeviceConfig"
+    },
+    "regIssuerName" : "edge-device",
+    "loadDefaultRegScripts" : true,
+    "_type" : {
+      "_id" : "iec",
+      "name" : "IEC Service",
+      "collection" : false
+    }
+  }
+}

@@ -10,6 +10,7 @@ export AMSTER_HOME="/opt/forgerock/amster"
 # Environment variables
 export TOMCAT_HOME="/usr/local/tomcat"
 export JAVA_HOME="/docker-java-home/jre"
+export WORK_DIR="/root/forgerock"
 
 #
 # Start tomcat and wait until startup is complete
@@ -79,7 +80,7 @@ function restart_tomcat() {
 function install_am() {
     start_tomcat
 
-    echo "Installing OpenAM"
+    echo "Installing AM"
     cd ${AMSTER_HOME}
     ./amster install-am.amster -D AM_URL=${AM_URL} -D AM_PASSWORD=${AM_PASSWORD} -D AM_HOME=${AM_HOME}
     # Execute and notify the caller if this fails.
@@ -91,10 +92,63 @@ function install_am() {
 }
 
 #
-# Add commands to bashrc to modify the container startup
+# Extract plugin tarball and copy IEC Plugin libs to AM
 #
-function modify_startup() {
-    # install the am_commands.sh file so that it is sourced when entering bash
-    echo "# source the AM commands file" >> /root/.bashrc
-    echo "source /opt/forgerock/am/am_commands.sh" >> /root/.bashrc
+function install_iec_plugin() {
+    echo "Installing IEC Plugin"
+    cd ${WORK_DIR}
+    tar -xzf iec-am-plugin-*.tgz
+    cp am-iec-plugin-*.jar ${TOMCAT_HOME}/webapps/openam/WEB-INF/lib
+    cp config/* ${TOMCAT_HOME}/webapps/openam/config/auth/default
+    cd - &>/dev/null
+}
+
+#
+# Modify DS configuration and add IoT identity attributes
+#
+function configure_ds() {
+    echo "Configuring DS"
+    ${AM_HOME}/opends/bin/dsconfig set-global-configuration-prop \
+    --set single-structural-objectclass-behavior:accept \
+    -p 4444 -X -D "cn=Directory Manager" -w "${AM_PASSWORD}" -n
+
+    ${AM_HOME}/opends/bin/ldapmodify --port 50389 --hostname localhost \
+    --bindDN "cn=Directory Manager" --bindPassword ${AM_PASSWORD} \
+    ${WORK_DIR}/ds/iot-device.ldif
+}
+
+#
+# Use Amster to import training configuration for AM
+#
+function configure_am() {
+    echo "Configuring AM"
+    cd ${AMSTER_HOME}
+    ./amster import-config.amster \
+        -D AM_URL=${AM_URL} \
+        -D AM_HOST=${AM_HOST} \
+        -D AMSTER_KEY=${AM_HOME}/amster_rsa \
+        -D AM_CONFIG_PATH=/opt/forgerock/am/configuration
+    cd - &>/dev/null
+}
+
+#
+# Copy Edge Identity Manager to tomcat
+#
+function install_edge_id_manager() {
+    echo "Installing Edge Identity Manager"
+    cd ${WORK_DIR}
+    cp edge-identity-manager-*.war ${TOMCAT_HOME}/webapps/identitymanager.war
+    cd - &>/dev/null
+}
+
+#
+# Quick install will bring the cloud environment to the state
+# it would be in after the installation guide has been completed
+#
+function quick_install() {
+    install_iec_plugin
+    start_tomcat
+    configure_ds
+    configure_am
+    install_edge_id_manager
 }
