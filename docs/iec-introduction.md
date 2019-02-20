@@ -15,3 +15,17 @@ The IEC consists of four components:
 * The Edge Identity Manager provides a User Interface to AM for viewing and managing device identities.
 
 ![IEC components](images/IEC-Components-V1.0.1.png "IEC Components")
+
+## IEC Edge Architecture
+The IEC implements a hierarchy of nodes at the edge, typically devices running embedded software. The edge nodes are 
+physical or virtual things that exist at the edge and benefit from having an identity. The nodes can range
+from fully capable nodes that can securely connect across a wide-area network to more constrained nodes. The IEC
+has three edge node types: IEC, CLIENT and DEVICE. The type is stored in the edge node’s identity and is
+used to make decisions about the edge node functions and properties.
+
+![IEC Edge Node Types](images/IEC-Edge-Node-Types-V1.0.0.png "IEC Edge Node Types")
+
+* The IEC edge node type represents an IEC Service and has a one to many relationship with CLIENT edge nodes.
+* The CLIENT edge node type represents a client application that makes use of the IEC SDK and has a one to many
+relationship with DEVICE edge nodes.
+* The DEVICE edge node type represents a physical device that can be onboarded via the IEC SDK.
