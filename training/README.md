@@ -55,18 +55,34 @@ in the [Installation Guide](../docs/iec-installation-guide.md) to install the IE
 In order to access AM's admin console and the Edge Identity Manager ensure that the host system's `/etc/hosts` file
 contains the network address of the `am` container: `127.0.0.1	am.iec.com`, using localhost in this case.
 
+If you are already familiar with the installation process then you can quickly prepare a new environment by running
+the below command in the container:
+
+    quick_install
+
+This command will perform all the instructions in the installation guide and use Amster to configure AM. It will leave
+the environment in the same state as it would be in after manually performing the steps in the installation guide.
+
 ### Install and configure the IEC Service
 
 In a new terminal run:
 
     docker exec -it iec bash
 
-The resources for installing the IEC Service is in `/root/forgerock`. Follow the installation instructions
-in the [Installation Guide](../docs/iec-installation-guide.md) to configure and install the IEC Service.
-
 The container has been set up with the following properties:
 
 * IP address: `172.16.0.11`
+
+The resources for installing the IEC Service is in `/root/forgerock`. Follow the installation instructions
+in the [Installation Guide](../docs/iec-installation-guide.md) to configure and install the IEC Service.
+
+If you are already familiar with the installation process then you can quickly prepare a new environment by running
+the below command in the container:
+
+    quick_install
+
+This command will perform all the instructions in the installation guide and start the IEC Service. It will leave
+the environment in the same state as it would be in after manually performing the steps in the installation guide.
 
 ### Install and configure the IEC SDK
 
@@ -74,9 +90,9 @@ In a new terminal run:
 
     docker exec -it sdk bash
 
-The resources for installing the IEC SDK is in `/root/forgerock`. Follow the installation instructions
-in the [Installation Guide](../docs/iec-installation-guide.md) to configure and install the IEC SDK.
-
 The container has been set up with the following properties:
 
 * IP address: `172.16.0.12`
+
+The resources for installing the IEC SDK is in `/root/forgerock`. Follow the installation instructions
+in the [Installation Guide](../docs/iec-installation-guide.md) to configure and install the IEC SDK.
