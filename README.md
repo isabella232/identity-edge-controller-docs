@@ -12,3 +12,6 @@ we have a Docker environment that can be used for training on how to install and
 
 #### Training
 The training environment can be used by cloning this project and following the instructions in [training](training/README.md).
+
+#### Integrations
+Example integrations with the training environment can be found in [integrations](integrations/).

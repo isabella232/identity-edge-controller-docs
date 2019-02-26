@@ -1,0 +1,12 @@
+{
+  "baseURI" : "${env['IG_BASE_URI']}",
+  "handler": {
+    "type": "StaticResponseHandler",
+    "config" : {
+      "status": 200,
+      "reason": "OK",
+      "entity": "allow"
+    }
+  },
+  "condition": "${matches(request.uri.path, '^/auth/(vhost|resource|topic)')}"
+}

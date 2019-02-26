@@ -3,6 +3,7 @@ FROM ubuntu:16.04
 RUN apt-get update --yes && \
     apt-get install --yes \
     curl \
+    build-essential \
     vim && \
     apt-get clean --yes
 

@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  ig:
+    image: ig-rabbitmq-userinfo:latest
+    container_name: ig
+    stdin_open: true
+    tty: true
+    build: ../integrations/rabbitmq/ig
+    ports:
+      - "8088:8080"
+    networks:
+      iec_net:
+        ipv4_address: 172.16.0.13
+    hostname: iot-ig
+    extra_hosts:
+      - "am.iec.com:172.16.0.10"
+    environment:
+      - IG_RUN_MODE=development
+      - IG_BASE_URI=http://openig.example.com:8080
+      - AM_PROTOCOL=http
+      - AM_HOST=am.iec.com
+      - AM_PORT=8080
+      - AM_REALM=/edge
+
+  rabbitmq:
+    image: rabbitmq-integration-example:latest
+    container_name: rabbitmq
+    stdin_open: true
+    tty: true
+    build: ../integrations/rabbitmq/rabbitmq
+    ports:
+      - "5672:5672"
+      - "1883:1883"
+      - "15672:15672"
+    networks:
+      iec_net:
+        ipv4_address: 172.16.0.14
+    hostname: iot-rabbitmq
+    extra_hosts:
+      - "openig.example.com:172.16.0.13"

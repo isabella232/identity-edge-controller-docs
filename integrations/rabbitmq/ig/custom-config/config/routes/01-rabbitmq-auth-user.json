@@ -1,0 +1,25 @@
+{
+  "name" : "01-rabbitmq-auth-user",
+  "baseURI" : "${env['IG_BASE_URI']}",
+  "condition" : "${matches(request.uri.path, '^/auth/user')}",
+  "handler" : {
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ {
+        "name" : "ScriptableFilter-userinfo",
+        "type" : "ScriptableFilter",
+        "config" : {
+          "type" : "application/x-groovy",
+          "file": "userinfo.groovy",
+          "args": {
+            "am_protocol": "${env['AM_PROTOCOL']}",
+            "am_host": "${env['AM_HOST']}",
+            "am_port": "${env['AM_PORT']}",
+            "am_realm": "${env['AM_REALM']}"
+          }
+        }
+      } ],
+      "handler" : "ReverseProxyHandler"
+    }
+  }
+}
