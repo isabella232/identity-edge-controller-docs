@@ -1,0 +1,38 @@
+{
+  "iec_configuration": {
+    "id_token_config.subject": "iec-aws-integration",
+    "id_token_config.audience": "am.iec.com",
+    "id_token_config.issuer": "edge-device",
+    "id_token_config.vendor_secret": "letmein",
+    "id_token_config.lifetime_seconds": 120
+  },
+  "am_configuration": {
+    "url": "http://am.iec.com:8080/openam",
+    "realm": "/edge",
+    "registration_chain": "device_registration",
+    "authentication_chain": "device_authentication",
+    "cookie_name": "iPlanetDirectoryPro",
+    "am_public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEN7MtObVf92FJTwYvY2ZvTVT3rgZp7a7XDtzT/9Rw7IC7E2bKihw+iliHiTUUJzjXK4llWiHGWEyjcpMglVM/dw==",
+    "command_endpoint_version": "resource=1.0, protocol=2.1"
+  },
+  "zmq_server": {
+    "whitelist": [
+      "127.0.0.1"
+    ],
+    "endpoint": "tcp://*:5556",
+    "secret_key": "O=QAu0}6S{y}D-bVgNB!(qJG*fIwPj=Y6<sQfaC}",
+    "public_key": "uH&^{aIzDw5<>TRbHcu0q#(zo]uLl6Wyv/11/^C+",
+    "client_public_keys": [
+      "uH&^{aIzDw5<>TRbHcu0q#(zo]uLl6Wyv/1{/^C+"
+    ]
+  },
+  "logging": {
+    "logfile": "/var/opt/forgerock/iec/iecservice.log",
+    "enabled": true,
+    "debug": true,
+    "max_file_size_mb": 10,
+    "max_backup_files": 10,
+    "max_file_age_days": 0,
+    "compress_file_backups": true
+  }
+}

@@ -10,7 +10,7 @@ The integration consists of five docker containers:
 
 The following diagram shows the authorisation flow:
 
-![RabbitMQ Authorisation Flow](../../docs/images/RabbitMQ-Auth-Plugin-V1.0.0.jpg "RabbitMQ Authorisation Flow")
+![RabbitMQ Authorisation Flow](../../docs/images/RabbitMQ-Auth-Plugin.jpg "RabbitMQ Authorisation Flow")
 
 In a production environment, it is recommended to use caching for authentication and authorisation to prevent performance degradation, for example with RabbitMQ [Access Control Cache](https://github.com/rabbitmq/rabbitmq-auth-backend-cache). 
 
