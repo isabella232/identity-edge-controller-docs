@@ -2,3 +2,10 @@
 *.zip
 *.tgz
 *.war
+
+# Build output
+integrations/awsiot/examples/aws_custom_auth/bin
+integrations/awsiot/examples/aws_custom_auth/pkg
+
+# 3rd Party libraries
+integrations/awsiot/examples/aws_custom_auth/src/github.com

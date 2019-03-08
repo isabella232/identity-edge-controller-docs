@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  aws-client:
+    environment:
+      - AM_HOST=${AM_HOST}
+      - AM_INTROSPECT_URL=${AM_INTROSPECT_URL}
+      - AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_IOT_ENDPOINT=${AWS_IOT_ENDPOINT}
+    image: aws-client:latest
+    container_name: aws-client
+    stdin_open: true
+    tty: true
+    build: .
+    hostname: aws-client-device
+    volumes:
+      - ${AWS_INTEGRATION_ROOT}/examples/aws_custom_auth:/root/forgerock/sdk/examples/aws_custom_auth
+    extra_hosts:
+      - "am.iec.com:${AM_HOST}"
