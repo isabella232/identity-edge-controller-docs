@@ -1,57 +1,18 @@
-## ForgeRock Identity Edge Application Developers Guide
-
-This guide shows you how to use the ForgeRock® Identity Edge Controller (IEC) SDK to 
-develop client applications and to register them with the IEC Service. The IEC SDK client 
-library provides client APIs in C and [Go](https://golang.org/) for client applications to 
-invoke ForgeRock Access Manager (AM) functionality through the IEC Service. The SDK library 
-is small and uses a secure lightweight messaging protocol so that it can run on constrained 
-devices.
-
-The examples in this Guide use the C API. Adjust the examples if you are using Go.
-
-### Before You Start
-Before you start developing clients, it is helpful to have an overview of the IEC and its 
-components. Read the official [IEC Documentation](http://backstage.forgerock.com/docs/iec/6.5/) 
-as a starting point.
-
-The code examples in this guide assume that you are using the 
-[IEC training environment](https://github.com/ForgeRock/identity-edge-controller-docs/tree/master/training). 
-If you are not using the training environment, make sure that you have installed all the 
-required components, including the IEC SDK, and that everything is up and running, as 
-described in the [IEC Installation Guide](http://backstage.forgerock.com/docs/iec/6.5/install-guide). 
-Also make sure that you have set the `LIBRARY_PATH` variables, as described in 
-[To Install the SDK](http://backstage.forgerock.com/docs/iec/6.5/install-guide/index.html#install-sdk).  
-Adjust the examples for your environment.
-
-The IEC Service attests for both clients (SDK) and devices. Onboarding either of these node 
-types will fail if the IEC Service has not registered successfully with AM. In general, the 
-functional flow is from the SDK Client library (`libiecclient.so`) API, via ZMQ and the IEC 
-Service to the AM IEC Plugin and back.
-
-For details of the IEC components and how they interact, see the 
-[IEC Getting Started Guide](http://backstage.forgerock.com/docs/iec/6.5/getting-started).
-
-Log in to the AM Admin Console. The default credentials for the AM admin user in the training 
-environment are `amadmin` and `password`. The training environment already has a configured realm 
-named `edge`. If you are not using the training environment, configure this realm, as described in 
-[Configuring AM for IoT](http://backstage.forgerock.com/docs/iec/6.5/install-guide/index.html#am-iot-config). 
-
-### About the Build Script
-
-The SDK includes a `build-examples.sh` script that sets the required environment variables and builds 
-all applications that are in the following directories:
-  
-<pre>~/forgerock/examples/<i>app-name</i></pre>
-
-The build script creates applications named *app-name* in the corresponding 
-`~/forgerock/examples/app-name` directory.
-   
-Before you use the script, open it in a text editor and adjust the path to your local C compiler, 
-for example:
-
-```export CC=usr/bin/gcc```
-  
-Make sure that the script is executable.  
+<!--
+ ! Copyright 2019 ForgeRock AS
+ !
+ ! Licensed under the Apache License, Version 2.0 (the "License");
+ ! you may not use this file except in compliance with the License.
+ ! You may obtain a copy of the License at
+ !
+ ! http://www.apache.org/licenses/LICENSE-2.0
+ !
+ ! Unless required by applicable law or agreed to in writing, software
+ ! distributed under the License is distributed on an "AS IS" BASIS,
+ ! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the License for the specific language governing permissions and
+ ! limitations under the License.
+-->
 
 ### Initializing Clients With the IEC SDK
 
