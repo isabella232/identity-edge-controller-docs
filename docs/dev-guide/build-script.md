@@ -27,6 +27,9 @@ The build script creates applications named *app-name* in the corresponding
 Before you use the script, open it in a text editor and adjust the path to your local C compiler, 
 for example:
 
-```export CC=usr/bin/gcc```
+`export CC=usr/bin/gcc`
   
-Make sure that the script is executable.
+The build script is not executable by default. Make sure that the script is executable before you 
+try the examples:
+
+`chmod +x build-examples.sh`

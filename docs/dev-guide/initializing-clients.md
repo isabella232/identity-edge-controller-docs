@@ -59,7 +59,7 @@ ways:
   as the `IEC_ENDPOINT` and `IEC_SECRETKEY`. For a list of all the attributes, see 
   [libiectypes.h](https://stash.forgerock.org/projects/IOT/repos/identity-edge-controller-core/browse/cmd/iecsdk/libiectypes.h).
   
-#### Example 1: Initializing a Client Manually
+#### Initializing a Client Manually
 
 To initialize the client manually:
 
@@ -128,7 +128,7 @@ initialize the client application, based on the database configuration file in t
    
    If the initialization was successful, you should see the `iec-client` identity in the AM Console.
 
-#### Example 2: Initializing a Client Dynamically
+#### Initializing a Client Dynamically
 
 If you are running this example after the previous example, delete the configuration file and database 
 (`sdk-config.json` and `iec-sdk.db`) from the `~/forgerock/examples/init_sdk_static` directory.
