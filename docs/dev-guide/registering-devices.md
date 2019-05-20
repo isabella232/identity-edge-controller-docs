@@ -30,7 +30,7 @@ To register a device:
 `iec_device_register()`.
 
    See the example client application 
-[register_device.c](../training/sdk/examples/register_device/register_device.c). This sample 
+[register_device.c](../../training/sdk/examples/register_device/register_device.c). This sample 
 application includes dynamic client initialization, shown in 
 [Initializing a Client Dynamically](initializing-clients.md#initializing-a-client-dynamically).
 
@@ -42,7 +42,7 @@ application includes dynamic client initialization, shown in
    C application in that directory.
   
    For example, copy 
-   [register_device.c](../training/sdk/examples/register_device/register_device.c) into a new 
+   [register_device.c](../../training/sdk/examples/register_device/register_device.c) into a new 
    directory named `register_device`:
    
    ```
