@@ -65,13 +65,13 @@ To initialize the client manually:
 
 1. Your C application must include the `libiecclient.h` library and a call to `iec_initialise()`.
 
-   See the example client application [init_sdk_static.c](../training/sdk/examples/init_sdk_static/init_sdk_static.c).
+   See the example client application [init_sdk_static.c](../../training/sdk/examples/init_sdk_static/init_sdk_static.c).
    
 2. Create a new directory in the `~/forgerock/examples` directory, with the same name as your client 
 application and place the C application in that directory.
 
    For example, to build the `init_sdk_static.c` application, copy 
-   [init_sdk_static.c](../training/sdk/examples/init_sdk_static/init_sdk_static.c) into a new directory 
+   [init_sdk_static.c](../../training/sdk/examples/init_sdk_static/init_sdk_static.c) into a new directory 
    named `init_sdk_static`:
    
    ```
@@ -138,13 +138,13 @@ To initialize the client dynamically:
 1. Your C application must include the `libiecclient.h` library, and provide the complete SDK 
 configuration with the `iec_set_attribute()` function.
 
-   See the example client application [init_sdk_dynamic.c](../training/sdk/examples/init_sdk_dynamic/init_sdk_dynamic.c).
+   See the example client application [init_sdk_dynamic.c](../../training/sdk/examples/init_sdk_dynamic/init_sdk_dynamic.c).
    
 2. Create a new directory in the `~/forgerock/examples` directory, with the same name as your client 
   application and place the C application in that directory.
   
    For example, to build the `init_sdk_dynamic.c` application, copy 
-   [init_sdk_dynamic.c](../training/sdk/examples/init_sdk_static/init_sdk_dynamic.c) into a new 
+   [init_sdk_dynamic.c](../../training/sdk/examples/init_sdk_static/init_sdk_dynamic.c) into a new 
    directory named `init_sdk_dynamic`:
    
    ```

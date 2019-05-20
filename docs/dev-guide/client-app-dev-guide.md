@@ -30,6 +30,6 @@ The examples in this Guide use the C API. Adjust the examples if you are using G
 * [About the Build Script](build-script.md)
 
 ### Developing Clients With the IEC SDK
-* [Initializing Clients](intiliazing-clients.md)
+* [Initializing Clients](initializing-clients.md)
 * [Registering a Device](registering-devices.md)
 
