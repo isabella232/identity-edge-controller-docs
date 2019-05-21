@@ -21,11 +21,11 @@
 
 int main() {
     int result = -1;
-    char deviceId[] = "Ibex";
+    char deviceId[] = "Rhino";
     char* registrationData = NULL;
 
-    printf("\n*** Getting configuration for a device\n");
-    printf("*** SDK function(s): iec_initialise, iec_device_register, iec_device_configuration, iec_json_*\n\n");
+    printf("\n*** Getting OAuth 2.0 access and ID tokens for a device\n");
+    printf("*** SDK function(s): iec_initialise, iec_device_register, iec_device_tokens, iec_json_*\n\n");
 
     printf("Setting dynamic attributes... ");
     if( iec_set_attribute(IEC_ENDPOINT, "tcp://172.16.0.11:5556") < 0
@@ -33,7 +33,7 @@ int main() {
         || iec_set_attribute(IEC_PUBLICKEY, "uH&^{aIzDw5<>TRbHcu0q#(zo]uLl6Wyv/1{/^C+") < 0
         || iec_set_attribute(IEC_SERVERPUBLICKEY, "9m27tKf3aoNWQ(G-f[>W]gP%f&+QxPD:?mX*)hdJ") < 0
         || iec_set_attribute(IEC_MSGTIMEOUTSEC, "5") < 0
-        || iec_set_attribute(IEC_CLIENT_ID, "get-config-client") < 0
+        || iec_set_attribute(IEC_CLIENT_ID, "get-device-tokens-client") < 0
         || iec_set_attribute(IEC_LOGGING_ENABLED, "true") < 0
         || iec_set_attribute(IEC_LOGGING_DEBUG, "true") < 0
         || iec_set_attribute(IEC_LOGGING_LOGFILE, "client.log") < 0
@@ -65,30 +65,28 @@ int main() {
     }
     printf("Done\n\n");
 
-    printf("Requesting configuration for device (id: %s)... ", deviceId);
-    char* config;
-    result = iec_device_configuration(deviceId, &config);
+    printf("Requesting OAuth 2.0 ID token for device (id: %s)... ", deviceId);
+    char* tokens;
+    result = iec_device_tokens(deviceId, &tokens);
     if (result < 0) {
         char* error = iec_last_error();
-        printf("Configuration request failed: %s\n", error);
+        printf("Access token request failed: %s\n", error);
         free(error);
         return result;
     }
     printf("Done\n\n");
 
-    printf("Parsing configuration: %s... ", config);
-    if (iec_json_parse(config) != 0) {
+    printf("Extracting access and id tokens...\n");
+    char* idToken;
+    char* accessToken;
+    if (iec_json_parse(tokens) != 0
+        || iec_json_get_string("access_token", &accessToken) != 0
+        || iec_json_get_string("id_token", &idToken) != 0 ) {
         char* error = iec_last_error();
-        printf("Parsing configuration failed: %s\n", error);
+        printf("Failed to extract access and id tokens: %s\n", error);
         free(error);
-        free(config);
         return -1;
     }
-    printf("Done\n\n");
-    free(config);
-
-    int minimum = -273;
-    /* Extract for the minimum value from the configuration, if it exists */
-    printf("Extract the \"minimum\" value from the configuration...");
-    iec_json_get_int("minimum", &minimum) == 0 ? printf("%d\n\n", minimum) : printf("Not set\n\n");
+    printf("\taccess token: %s\n", accessToken);
+    printf("\tid token: %s\n\n", idToken);
 }
