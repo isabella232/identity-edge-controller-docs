@@ -1,7 +1,35 @@
 ## Google Cloud Platform IoT Integration
 ### Introduction
 
+The IoT Core component of the Google Cloud Platform (GCP) can ingest data from devices at the edge.
+This data can then be funnelled to other GCP components for processing, analysis, visualisation and storage.
+In order for a device to connect, it must first be registered with the IoT Core device manager by an authenticated
+"provisioner".
 
+![IoT Core Overview](../../docs/images/GCP-IoT-Core-Overview.svg "IoT Core Overview")
+
+The ForgeRock Platform with the IEC offers just-in-time registration with configurable registration and authentication
+chains.
+Furthermore, the ForgeRock Platform can act as an authenticated GCP IoT Core device provisioner.
+This integration example demonstrates how registration with the ForgeRock Platform can be configured to register devices
+in GCP IoT Core, thus devices automatically receive "dual-citizenship" of both platforms through the IEC.
+The newly registered device can then connect via MQTT to GCP IoT Core and send and receive data.
+
+![IEC IoT Core Integration](../../docs/images/IEC-GCP-IoT-Core-Integration.svg "IEC IoT Core Integration")
+
+Components in the example are:
+- Client application
+    - registers a device using the IEC SDK, passing its public key as registration data
+    - obtains MQTT connection information by requesting its configuration from AM using the IEC SDK
+    - connects to the GCP MQTT bridge, authenticating itself via a JWT signed with its private key
+    - publishes and subscribes to topics via the GCP MQTT bridge
+- IEC Service
+    - facilitates registration and get configuration requests for the client application
+- AM
+    - registers edge nodes
+    - registers a device with GCP IoT Core
+    - stores the relevant GCP IoT Core MQTT connection information as device configuration
+    - supplies device configuration on request
 
 ### Prerequisites
 
