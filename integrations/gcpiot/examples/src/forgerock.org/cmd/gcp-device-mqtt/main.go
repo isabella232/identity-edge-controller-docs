@@ -18,6 +18,7 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
@@ -27,6 +28,7 @@ import (
 	"github.com/eclipse/paho.mqtt.golang"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -54,6 +56,25 @@ var (
 		},
 	}
 )
+
+// sensorData holds dummy sensor data to publish to the 'event' topic
+type sensorData struct {
+	NoiseLevel         float64 `json:"noise_level"`
+	Illuminance        int     `json:"illuminance"`
+	TimeAliveInSeconds int     `json:"time_alive_in_seconds"`
+}
+
+// fluctuate randomly fluctuates the values in the sensorData
+func (d *sensorData) fluctuate(timeAlive int) {
+	d.Illuminance += rand.Intn(10) - 5
+	d.NoiseLevel += rand.Float64() - 0.5
+	d.TimeAliveInSeconds = timeAlive
+}
+
+func (d *sensorData) String() string {
+	return fmt.Sprintf("{Noise Level %f, Illuminance %d, Time Alive %d}", d.NoiseLevel, d.Illuminance,
+		d.TimeAliveInSeconds)
+}
 
 // readRegistrationData reads the public key of the device and formats it so that it can be passed to the device
 // register call
@@ -112,11 +133,11 @@ func (mqttLogger) Printf(format string, v ...interface{}) {
 // mqttConnectionData holds the data needed to connect to the MQTT bridge of the IoT Core project that the device
 // is registered to
 type mqttConnectionData struct {
-	MQTTServerURL string `json:"mqtt_server_url"`
-	ProtocolVersion uint `json:"protocol_version"`
-	ProjectID string `json:"project_id"`
-	Region string `json:"region"`
-	RegistryID string `json:"registry_id"`
+	MQTTServerURL   string `json:"mqtt_server_url"`
+	ProtocolVersion uint   `json:"protocol_version"`
+	ProjectID       string `json:"project_id"`
+	Region          string `json:"region"`
+	RegistryID      string `json:"registry_id"`
 }
 
 // connectToIOTCore creates a MQTT client and connects it to the Google IoT Core MQTT server
@@ -275,17 +296,41 @@ func main() {
 	}()
 
 	state := "alive"
-	event := "demo in process"
 
 	// publishing device state
 	if token := client.Publish(stateTopic(*deviceID), qos, false, state); token.Wait() && token.Error() != nil {
 		log.Fatal(token.Error())
 	}
 
-	// publishing telemetry event
-	if token := client.Publish(eventTopic(*deviceID), qos, false, event); token.Wait() && token.Error() != nil {
-		log.Fatal(token.Error())
-	}
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// create a goroutine to regularly publish telemetry events
+	go func() {
+		timeInterval := 2
+		data := sensorData{
+			NoiseLevel:         10.0, // leaf rustling
+			Illuminance:        400,  // sunrise
+			TimeAliveInSeconds: 0,
+		}
+		for timeAlive := 0; ; timeAlive += timeInterval {
+			select {
+			case <-ctx.Done():
+				return
+			default:
+				time.Sleep(time.Duration(timeInterval) * time.Second)
+				data.fluctuate(timeAlive)
+				dataBytes, err := json.Marshal(data)
+				if err != nil {
+					continue
+				}
+				fmt.Println("Publishing sensor data:", data)
+				if token := client.Publish(eventTopic(*deviceID), qos, false, dataBytes); token.Wait() && token.Error() != nil {
+					log.Println(token.Error())
+				}
+			}
+		}
+	}()
 
 	// listen for commands
 	if token := client.Subscribe(commandTopic(*deviceID), qos, nil); token.Wait() && token.Error() != nil {
@@ -297,11 +342,9 @@ func main() {
 		log.Fatal(token.Error())
 	}
 
-	fmt.Println("Listening... enter 'q' to exit")
+	fmt.Println("Publishing and listening. Enter any key to exit")
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		if scanner.Text() == "q" {
-			break
-		}
+		break
 	}
 }

@@ -118,8 +118,34 @@ The client will:
 1. register a device (with deviceID) with AM via the IEC. AM will register the device with IoT Core.
 1. use the private key of the device to connect a MQTT client to the GCP MQTT bridge
 1. publish a message to the device's status topic
-1. publish a message to the device's telemetry event topic
+1. publish a message to the device's telemetry event topic every 2 seconds
 1. subscribe to the command topic. 
-Commands can be sent to the device by clicking the `SEND COMMAND` button in the registry entry for the device on IoT Core. 
 1. subscribe to the config topic.
-Configuration can be sent to the device by clicking the `UPDATE CONFIG` button in the registry entry for the device on IoT Core. 
+
+Press any key to exit the client application.
+
+### Interact with a running example client
+
+#### Send a command to the device
+Commands can be sent to the device by clicking the `SEND COMMAND` button in the registry entry for the device on IoT Core.
+
+#### Send configuration to the device
+Configuration can be sent to the device by clicking the `UPDATE CONFIG` button in the registry entry for the device on IoT Core.
+
+#### Pull event data published by the device
+Events can be pulled from the command-line using the [gcloud tool](https://cloud.google.com/sdk/gcloud/).
+
+For convenience, assign the following bash variables based on the values used when 
+[preparing GCP](#prepare-google-cloud-platform):
+
+	PROJECT_ID=your-project
+	REGISTRY_ID=your-registry
+
+Create a subscription:
+
+	gcloud pubsub subscriptions create projects/${PROJECT_ID}/subscriptions/device-subscription \
+		--topic=projects/${PROJECT_ID}/topics/${REGISTRY_ID}
+	
+Pull a message from the subscription:
+
+	gcloud pubsub subscriptions pull --auto-ack projects/${PROJECT_ID}/subscriptions/device-subscription
